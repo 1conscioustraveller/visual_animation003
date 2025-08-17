@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌈 Side-Controlled Psychedelic Generator 🌈</title>
+    <title>🌈 Widescreen Psychedelic Generator 🌈</title>
     <style>
         :root {
             --color1: #ff00ff;
             --color2: #00ffff;
             --glow: 15px;
-            --controls-width: 300px;
+            --controls-width: 280px;
+            --animation-width: min(90vw, 1200px);
         }
         
         body {
@@ -64,8 +65,9 @@
                 0 0 calc(var(--glow) * 2) var(--color2);
             border-radius: 10px;
             transition: all 0.5s ease;
-            max-width: 90%;
-            max-height: 60vh;
+            width: var(--animation-width);
+            height: calc(var(--animation-width) * 0.6);
+            max-height: 70vh;
         }
         
         .download-container {
@@ -223,12 +225,17 @@
             .animation-container {
                 padding-bottom: 80px;
             }
+            
+            canvas {
+                width: 95vw;
+                height: calc(95vw * 0.6);
+            }
         }
     </style>
 </head>
 <body>
     <div class="animation-container">
-        <h1>🌈 PSYCHEDELIC GENERATOR 🌈</h1>
+        <h1>🌈 WIDESCREEN PSYCHEDELIA 🌈</h1>
         <canvas id="psychedelicCanvas"></canvas>
         <div class="download-container">
             <button id="downloadBtn">💾 Download (7s)</button>
@@ -311,9 +318,10 @@
         // Set canvas size
         function resizeCanvas() {
             const container = document.querySelector('.animation-container');
-            const size = Math.min(container.clientWidth - 40, 600);
-            canvas.width = size;
-            canvas.height = size;
+            const width = Math.min(container.clientWidth - 40, 1200);
+            const height = width * 0.6;
+            canvas.width = width;
+            canvas.height = height;
         }
         
         resizeCanvas();
