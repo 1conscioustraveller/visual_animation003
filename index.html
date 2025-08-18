@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌈 FULLSCREEN Psychedelic Generator 🌈</title>
+    <title>🌈 Full-Screen Psychedelic Generator 🌈</title>
     <style>
         :root {
             --color1: #ff00ff;
@@ -52,12 +52,7 @@
                 0 0 30px rgba(255, 255, 255, 0.5);
             animation: titleGlow 4s ease-in-out infinite alternate;
             z-index: 10;
-            transition: all 0.3s;
-        }
-        
-        body.fullscreen h1 {
-            opacity: 0;
-            pointer-events: none;
+            transition: opacity 0.3s;
         }
         
         @keyframes titleGlow {
@@ -77,34 +72,11 @@
             max-height: 70vh;
         }
         
-        body.fullscreen canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            max-height: none;
-            border-radius: 0;
-            box-shadow: none;
-            z-index: 1;
-        }
-        
         .download-container {
             margin: 20px 0;
             text-align: center;
             z-index: 10;
-            transition: all 0.3s;
-        }
-        
-        body.fullscreen .download-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
+            transition: opacity 0.3s;
         }
         
         #countdown {
@@ -130,107 +102,106 @@
             box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
             border-left: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s;
         }
         
-        body.fullscreen .controls-panel {
-            transform: translateX(-100%);
+        /* Full-screen styles */
+        body:fullscreen .animation-container,
+        body:-webkit-full-screen .animation-container,
+        body:-moz-full-screen .animation-container {
+            padding: 0;
+            justify-content: center;
         }
         
-        .control-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #fff;
-            text-shadow: 0 0 5px var(--color1), 0 0 10px var(--color2);
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-        
-        input[type="range"], select, input[type="color"] {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
-            height: 25px;
-            cursor: pointer;
-            accent-color: var(--color1);
-        }
-        
-        input[type="color"] {
-            height: 40px;
-            padding: 2px;
-            border: 2px solid white;
-            box-shadow: 0 0 10px var(--color1);
-        }
-        
-        .color-pickers {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
-        
-        .color-picker {
-            flex: 1;
-        }
-        
-        button {
-            background: linear-gradient(45deg, var(--color1), var(--color2));
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 5px 0;
-            transition: all 0.3s;
-            font-size: 14px;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            box-shadow: 
-                0 0 10px var(--color1),
-                0 0 20px var(--color2),
-                inset 0 0 10px rgba(255, 255, 255, 0.3);
-            width: 100%;
-        }
-        
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 
-                0 0 20px var(--color1),
-                0 0 40px var(--color2),
-                inset 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-        
-        button:disabled {
-            background: #666;
-            cursor: not-allowed;
+        body:fullscreen canvas,
+        body:-webkit-full-screen canvas,
+        body:-moz-full-screen canvas {
+            width: 100vw;
+            height: 100vh;
+            max-height: none;
+            border-radius: 0;
             box-shadow: none;
         }
         
-        #fullscreenBtn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: auto;
-            padding: 8px 15px;
-            z-index: 20;
+        body:fullscreen .controls-panel,
+        body:-webkit-full-screen .controls-panel,
+        body:-moz-full-screen .controls-panel,
+        body:fullscreen .download-container,
+        body:-webkit-full-screen .download-container,
+        body:-moz-full-screen .download-container,
+        body:fullscreen h1,
+        body:-webkit-full-screen h1,
+        body:-moz-full-screen h1,
+        body:fullscreen .controls-toggle,
+        body:-webkit-full-screen .controls-toggle,
+        body:-moz-full-screen .controls-toggle {
+            opacity: 0;
+            pointer-events: none;
         }
         
-        body.fullscreen #fullscreenBtn {
+        body:fullscreen .fullscreen-btn,
+        body:-webkit-full-screen .fullscreen-btn,
+        body:-moz-full-screen .fullscreen-btn {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Full-screen button */
+        .fullscreen-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--color1), var(--color2));
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            z-index: 101;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .fullscreen-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Exit full-screen button (shown only in full-screen mode) */
+        .exit-fullscreen-btn {
             position: fixed;
             top: 20px;
             right: 20px;
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-        }
-        
-        .controls-toggle {
+            border: 2px solid white;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 16px;
+            z-index: 102;
+            cursor: pointer;
             display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
+        body:fullscreen .exit-fullscreen-btn,
+        body:-webkit-full-screen .exit-fullscreen-btn,
+        body:-moz-full-screen .exit-fullscreen-btn {
+            display: block;
+            opacity: 0.7;
+        }
+        
+        .exit-fullscreen-btn:hover {
+            opacity: 1 !important;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Mobile responsive styles */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -254,7 +225,7 @@
             .controls-toggle {
                 display: block;
                 position: fixed;
-                bottom: 20px;
+                bottom: 80px;
                 right: 20px;
                 background: linear-gradient(45deg, var(--color1), var(--color2));
                 border: none;
@@ -267,6 +238,11 @@
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             }
             
+            .fullscreen-btn {
+                bottom: 20px;
+                right: 20px;
+            }
+            
             .animation-container {
                 padding-bottom: 80px;
             }
@@ -276,20 +252,21 @@
                 height: calc(95vw * 0.6);
             }
             
-            #fullscreenBtn {
-                top: 10px;
-                right: 10px;
-                padding: 5px 10px;
-                font-size: 12px;
+            /* Adjust for mobile full-screen */
+            body:fullscreen canvas,
+            body:-webkit-full-screen canvas,
+            body:-moz-full-screen canvas {
+                width: 100vw;
+                height: 100vh;
+                max-height: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="animation-container">
-        <h1>🌈 FULLSCREEN PSYCHEDELIA 🌈</h1>
+        <h1>🌈 FULL-SCREEN PSYCHEDELIA 🌈</h1>
         <canvas id="psychedelicCanvas"></canvas>
-        <button id="fullscreenBtn">⛶ Fullscreen</button>
         <div class="download-container">
             <button id="downloadBtn">🎥 Download Video (7s)</button>
             <div id="countdown">Preparing video... 7</div>
@@ -354,6 +331,8 @@
     </div>
     
     <button class="controls-toggle" id="controlsToggle">⚙️</button>
+    <button class="fullscreen-btn" id="fullscreenBtn">⛶</button>
+    <button class="exit-fullscreen-btn" id="exitFullscreenBtn">✕</button>
 
     <script>
         // DOM Elements
@@ -368,45 +347,19 @@
         const controlsPanel = document.getElementById('controlsPanel');
         const controlsToggle = document.getElementById('controlsToggle');
         const fullscreenBtn = document.getElementById('fullscreenBtn');
-        const body = document.body;
+        const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
         
         // Set canvas size
         function resizeCanvas() {
-            if (body.classList.contains('fullscreen')) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            } else {
-                const container = document.querySelector('.animation-container');
-                const width = Math.min(container.clientWidth - 40, 1200);
-                const height = width * 0.6;
-                canvas.width = width;
-                canvas.height = height;
-            }
+            const container = document.querySelector('.animation-container');
+            const width = Math.min(container.clientWidth - 40, 1200);
+            const height = width * 0.6;
+            canvas.width = width;
+            canvas.height = height;
         }
         
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-        
-        // Fullscreen functionality
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                body.classList.add('fullscreen');
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
-                });
-            } else {
-                document.exitFullscreen();
-            }
-        }
-        
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                body.classList.remove('fullscreen');
-            }
-            resizeCanvas();
-        });
-        
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
         
         // Convert hex to RGB components
         function hexToRgbComponents(hex) {
@@ -460,6 +413,62 @@
         
         updateColors();
         
+        // Full-screen functionality
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                // Enter full-screen
+                const container = document.querySelector('.animation-container');
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                fullscreenBtn.style.display = 'none';
+            } else {
+                // Exit full-screen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+        
+        fullscreenBtn.addEventListener('click', toggleFullScreen);
+        exitFullscreenBtn.addEventListener('click', toggleFullScreen);
+        
+        // Show/hide fullscreen button based on state
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+        
+        function handleFullscreenChange() {
+            if (!document.fullscreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.mozFullScreenElement && 
+                !document.msFullscreenElement) {
+                // Exited full-screen
+                fullscreenBtn.style.display = 'block';
+                fullscreenBtn.style.opacity = '1';
+            } else {
+                // Entered full-screen
+                fullscreenBtn.style.display = 'none';
+            }
+        }
+        
+        // Show fullscreen button on desktop
+        if (window.innerWidth > 768) {
+            fullscreenBtn.style.display = 'block';
+            setTimeout(() => {
+                fullscreenBtn.style.opacity = '1';
+            }, 1000);
+        }
+        
         // Animation variables
         let time = 0;
         let hue = 0;
@@ -472,7 +481,7 @@
         let mediaRecorder;
         let recordedChunks = [];
         let stream;
-        const frameRate = 30; // 30fps for smooth video
+        const frameRate = 30;
         
         // Initialize particles for particle mode
         function initParticles(count) {
