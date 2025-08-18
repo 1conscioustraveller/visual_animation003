@@ -181,7 +181,26 @@
         }
         
         @media (max-width: 768px) {
-             
+            
+        /* Added the blocks below */
+            .controls-panel .color-pickers {
+                gap: 8px !important;
+                margin-bottom: 8px !important;
+    }
+
+            .controls-panel .control-group.color-picker {
+                margin-bottom: 5px !important;
+    }
+
+            .controls-panel input[type="color"] {
+                height: 36px !important;
+                min-width: 80px !important;
+                padding: 1px !important;
+                border-width: 1px !important;
+    }
+}
+
+            
             /* Added this new block for color picker adjustments */
             .color-pickers {
                 gap: 8px; /* Reduced gap between color pickers */
