@@ -181,6 +181,31 @@
         }
         
         @media (max-width: 768px) {
+             
+            /* Added this new block for color picker adjustments */
+            .color-pickers {
+                gap: 8px; /* Reduced gap between color pickers */
+                margin-bottom: 8px;
+            }
+
+            .color-picker {
+            margin-bottom: 5px; /* Reduced spacing between stacked pickers */
+            }
+
+            input[type="color"] {
+            height: 36px !important; /* Smaller height */
+            min-width: 80px !important; /* Constrained width */
+            padding: 1px; /* Tighter padding */
+            border-width: 1px !important; /* Thinner border */
+            }
+
+            /* Optional: Make the color swatch preview smaller */
+            input[type="color"]::-webkit-color-swatch {
+            border-radius: 4px !important;
+            }
+
+            /* Kept existing mobile styles below */
+            
             body {
                 flex-direction: column;
             }
