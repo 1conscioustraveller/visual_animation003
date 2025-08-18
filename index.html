@@ -185,22 +185,27 @@
             /* Added the blocks below arranged by DeepSeek to
             constrain dimensions of color picker box*/
 
-                /* Color Picker System - SINGLE VERSION */
+                /* Modified Color Picker System - Side by side layout */
         .controls-panel .color-pickers {
                 gap: 8px;
                 margin-bottom: 8px;
                 display: flex;
-                flex-direction: column;
+                flex-direction: row; /* Changed from column to row */
+                align-items: center; /* Vertically centers the color pickers */
+                flex-wrap: wrap; /* Allows wrapping if space is limited */
         }
 
         .controls-panel .control-group.color-picker {
-                margin-bottom: 5px;
-                width: 100%;
+                margin-bottom: 0; /* Removed bottom margin since they're side by side */
+                width: auto; /* Changed from 100% to auto */
+                flex: 1; /* Allows equal distribution of space */
+                min-width: calc(50% - 4px); /* Ensures two fit side by side with gap */
         }
 
         .controls-panel input[type="color"] {
                 height: 36px;
-                width: 80px !important; /* Changed from min-width */
+                width: 100% !important; /* Full width of its container */
+                min-width: 0; /* Overrides any minimum width */
                 padding: 1px;
                 border: 1px solid white;
                 -webkit-appearance: none;
