@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌈 Ultimate Psychedelic Video Generator 🌈</title>
+    <title>🌈 FULLSCREEN Psychedelic Generator 🌈</title>
     <style>
         :root {
             --color1: #ff00ff;
@@ -34,6 +34,7 @@
             justify-content: center;
             padding: 20px;
             overflow: hidden;
+            position: relative;
         }
         
         h1 {
@@ -51,6 +52,12 @@
                 0 0 30px rgba(255, 255, 255, 0.5);
             animation: titleGlow 4s ease-in-out infinite alternate;
             z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        body.fullscreen h1 {
+            opacity: 0;
+            pointer-events: none;
         }
         
         @keyframes titleGlow {
@@ -70,10 +77,34 @@
             max-height: 70vh;
         }
         
+        body.fullscreen canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            max-height: none;
+            border-radius: 0;
+            box-shadow: none;
+            z-index: 1;
+        }
+        
         .download-container {
             margin: 20px 0;
             text-align: center;
             z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        body.fullscreen .download-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
         }
         
         #countdown {
@@ -100,6 +131,10 @@
             border-left: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
             transition: transform 0.3s ease;
+        }
+        
+        body.fullscreen .controls-panel {
+            transform: translateX(-100%);
         }
         
         .control-group {
@@ -175,6 +210,23 @@
             box-shadow: none;
         }
         
+        #fullscreenBtn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            padding: 8px 15px;
+            z-index: 20;
+        }
+        
+        body.fullscreen #fullscreenBtn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
         .controls-toggle {
             display: none;
         }
@@ -223,13 +275,21 @@
                 width: 95vw;
                 height: calc(95vw * 0.6);
             }
+            
+            #fullscreenBtn {
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="animation-container">
-        <h1>🌈 ULTIMATE PSYCHEDELIC GENERATOR 🌈</h1>
+        <h1>🌈 FULLSCREEN PSYCHEDELIA 🌈</h1>
         <canvas id="psychedelicCanvas"></canvas>
+        <button id="fullscreenBtn">⛶ Fullscreen</button>
         <div class="download-container">
             <button id="downloadBtn">🎥 Download Video (7s)</button>
             <div id="countdown">Preparing video... 7</div>
@@ -307,18 +367,46 @@
         const resetBtn = document.getElementById('resetBtn');
         const controlsPanel = document.getElementById('controlsPanel');
         const controlsToggle = document.getElementById('controlsToggle');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const body = document.body;
         
         // Set canvas size
         function resizeCanvas() {
-            const container = document.querySelector('.animation-container');
-            const width = Math.min(container.clientWidth - 40, 1200);
-            const height = width * 0.6;
-            canvas.width = width;
-            canvas.height = height;
+            if (body.classList.contains('fullscreen')) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            } else {
+                const container = document.querySelector('.animation-container');
+                const width = Math.min(container.clientWidth - 40, 1200);
+                const height = width * 0.6;
+                canvas.width = width;
+                canvas.height = height;
+            }
         }
         
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
+        
+        // Fullscreen functionality
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                body.classList.add('fullscreen');
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                body.classList.remove('fullscreen');
+            }
+            resizeCanvas();
+        });
+        
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
         
         // Convert hex to RGB components
         function hexToRgbComponents(hex) {
